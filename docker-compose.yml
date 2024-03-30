@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  frontend:
+    image: forntend-image:latest
+    ports:
+      - "8083:80"  # Assuming your frontend is served on port 80 inside the container
+
+  database:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root  # Change this to your desired root password
+      MYSQL_DATABASE: db_restaurant  # Change this to your desired database name
+      MYSQL_USER: monk  # Change this to your desired database user
+      MYSQL_PASSWORD: monk_1o1  # Change this to your desired database password
+    ports:
+      - "3306:3306"  # Expose MySQL port for external connections
+
+  backend:
+    image: backend-image:latest
+    ports:
+      - "3000:3000"  # Assuming your backend is served on port 5000 inside the container
+    depends_on:
+      - database
+
